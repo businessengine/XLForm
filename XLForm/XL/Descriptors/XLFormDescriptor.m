@@ -316,10 +316,15 @@ NSString * const XLFormSectionsKey = @"formSections";
         }
         else {
             for (XLFormRowDescriptor *row in section.formRows) {
-                id value = [row.value valueData];
-                if (row.tag.length > 0 && value != nil) {
-                    [result setObject:value forKey:row.tag];
-                }
+              // 4.0.1 - Break everything in BE as we rely on the XLFormOptionObjecs object not its value as in 4.0.1
+              // id value = [row.value valueData];
+              // if (row.tag.length > 0 && value != nil) {
+              // [result setObject:value forKey:row.tag];
+              // }
+              // Fallback to 4.0.0
+              if (row.tag.length > 0){
+                [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
+              }
             }
         }
     }

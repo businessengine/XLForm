@@ -42,9 +42,6 @@
 
 -(id)valueData
 {
-    if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSNumber class]] || [self isKindOfClass:[NSDate class]]){
-        return self;
-    }
     if ([self isKindOfClass:[NSArray class]]) {
         NSMutableArray * result = [NSMutableArray array];
         [(NSArray *)self enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL __unused *stop) {
@@ -52,10 +49,13 @@
         }];
         return result;
     }
+  
     if ([self conformsToProtocol:@protocol(XLFormOptionObject)]){
         return [(id<XLFormOptionObject>)self formValue];
     }
-    return nil;
+  
+    // BusinessEngine: Custom row may use any value which we don't know, so this is a safer option
+    return self;
 }
 
 @end
