@@ -149,7 +149,12 @@
     if (self.rowDescriptor.leftRightSelectorLeftOptionSelected){
         XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
         if (option.rightOptions){
-            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc]  initWithStyle:UITableViewStyleGrouped];
+            UITableViewStyle style = UITableViewStyleGrouped;
+            if (@available(iOS 13.0, *)) {
+                style = UITableViewStyleInsetGrouped;
+            }
+            
+            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc]  initWithStyle:style];
             optionsViewController.title = option.selectorTitle;
             optionsViewController.rowDescriptor = self.rowDescriptor;
             [controller.navigationController pushViewController:optionsViewController animated:YES];

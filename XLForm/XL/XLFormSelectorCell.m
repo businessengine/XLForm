@@ -195,7 +195,11 @@
             }
         }
         else if (self.rowDescriptor.selectorOptions){
-            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+            UITableViewStyle style = UITableViewStyleGrouped;
+            if (@available(iOS 13.0, *)) {
+                style = UITableViewStyleInsetGrouped;
+            }
+            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:style titleHeaderSection:nil titleFooterSection:nil];
             optionsViewController.rowDescriptor = self.rowDescriptor;
             optionsViewController.title = self.rowDescriptor.selectorTitle;
 
@@ -231,7 +235,11 @@
         if ((controllerToPresent = [self controllerToPresent])){
             optionsViewController = (XLFormOptionsViewController *)controllerToPresent;
         } else {
-            optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+            UITableViewStyle style = UITableViewStyleGrouped;
+            if (@available(iOS 13.0, *)) {
+                style = UITableViewStyleInsetGrouped;
+            }
+            optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:style titleHeaderSection:nil titleFooterSection:nil];
         }
         optionsViewController.rowDescriptor = self.rowDescriptor;
         optionsViewController.title = self.rowDescriptor.selectorTitle;
